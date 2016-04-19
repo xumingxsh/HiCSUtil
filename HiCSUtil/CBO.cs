@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Reflection;
 
 namespace HiCSUtil
@@ -23,6 +24,32 @@ namespace HiCSUtil
         /// <param name="propertyName"></param>
         /// <returns></returns>
         public delegate object OnGetValueHandler(string propertyName);
+
+        /// <summary>
+        /// 根据DataRow填充对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dr"></param>
+        /// <returns></returns>
+        public static T CreateObj<T>(DataRow dr) where T : class, new()
+        {
+            T t = new T();
+
+            bool result = HiCSUtil.CBO.FillObject<T>(t, (string name) =>
+            {
+                if (!dr.Table.Columns.Contains(name))
+                {
+                    return null;
+                }
+                return dr[name];
+            });
+
+            if (result)
+            {
+                return t;
+            }
+            return null;
+        }
 
         /// <summary>
         /// 填充数据对象。
