@@ -61,6 +61,10 @@ namespace HiCSUtil
         /// <returns></returns>
         public static DataTable Json2DataTable(string strJson)
         {
+            if (string.IsNullOrWhiteSpace(strJson))
+            {
+                return null;
+            }
             //转换json格式
             strJson = strJson.Replace(",\"", "*\"").Replace("\":", "\"#").ToString();
             //取出表名   
@@ -113,7 +117,7 @@ namespace HiCSUtil
                 tb.AcceptChanges();
             }
 
-            if (tb.Rows.Count == 1)
+            if (tb != null && tb.Rows.Count == 1)
             {
                 bool isZeroRow = true;
                 foreach(object it in tb.Rows[0].ItemArray)
@@ -141,6 +145,10 @@ namespace HiCSUtil
         /// <returns>Json字符串</returns>     
         public static string DataTable2Json(DataTable dt)
         {
+            if (dt == null)
+            {
+                return "";
+            }
             StringBuilder sb = new StringBuilder();
             sb.Append("[");
             DataRowCollection drc = dt.Rows;
@@ -180,7 +188,6 @@ namespace HiCSUtil
                 }
                 sb.Append("}");
             }
-            sb.Remove(sb.Length - 1, 1);
             sb.Append("]");
             return sb.ToString();
         }
