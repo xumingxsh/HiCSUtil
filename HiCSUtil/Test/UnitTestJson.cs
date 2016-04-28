@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -29,6 +30,19 @@ namespace HiCSUtil.Test
             System.Diagnostics.Debug.WriteLine(str);
             DataTable dt2 = Json.Json2DataTable(str);
             Assert.IsTrue(dt2.Columns.Count > 0);
+        }
+
+        [TestMethod]
+        public void UnitTestJson_Dictionary()
+        {
+            IDictionary<string, string> dic = new Dictionary<string, string>();
+            dic["x"] = "x";
+            dic["y"] = "y";
+            string text = Json.Obj2Json(dic);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(text));
+            System.Diagnostics.Trace.WriteLine(text);
+            Dictionary<string, string> dic2 = Json.Json2Obj<Dictionary<string, string>>(text);
+            Assert.IsTrue(dic2.Count == 2);
         }
 
         public DataTable GetTable(bool hasRow = true)
