@@ -61,12 +61,29 @@ namespace HiCSUtil
         /// <returns></returns>
         public static DataTable Json2DataTable(string strJson)
         {
+            try
+            {
+                return Json2DataTable_i(strJson);
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
+                return null;
+            }
+        }
+
+        const string MaoHao = "|###|";
+        const string MaoHaoEx = "\"|###|";
+        const string DouHao = "|***|";
+        const string DouHaoEx = "|***|\"";
+        private static DataTable Json2DataTable_i(string strJson)
+        {
             if (string.IsNullOrWhiteSpace(strJson))
             {
                 return null;
             }
             //转换json格式
-            strJson = strJson.Replace(",\"", "*\"").Replace("\":", "\"#").ToString();
+            strJson = strJson.Replace(",\"", DouHaoEx).Replace("\":", MaoHaoEx);
             //取出表名   
             var rg = new Regex(@"(?<={)[^:]+(?=:\[)", RegexOptions.IgnoreCase);
             string strName = rg.Match(strJson).Value;
@@ -81,7 +98,7 @@ namespace HiCSUtil
             for (int i = 0; i < mc.Count; i++)
             {
                 string strRow = mc[i].Value;
-                string[] strRows = strRow.Split('*');
+                string[] strRows = Json.Split(strRow, DouHao); //strRow.Split('*');
 
                 //创建表   
                 if (tb == null)
@@ -91,7 +108,7 @@ namespace HiCSUtil
                     foreach (string str in strRows)
                     {
                         var dc = new DataColumn();
-                        string[] strCell = str.Split('#');
+                        string[] strCell = Json.Split(str, MaoHao);// str.Split('#');
 
                         if (strCell[0].Substring(0, 1) == "\"")
                         {
@@ -111,7 +128,18 @@ namespace HiCSUtil
                 DataRow dr = tb.NewRow();
                 for (int r = 0; r < strRows.Length; r++)
                 {
-                    dr[r] = strRows[r].Split('#')[1].Trim().Replace("，", ",").Replace("：", ":").Replace("\"", "");
+                    try
+                    {
+                        string[] arr = Json.Split(strRows[r], MaoHao);
+                        if (arr != null && arr.Length > 1)
+                        {
+                            dr[r] = arr[1].Trim().Replace("，", ",").Replace("：", ":").Replace("\"", "");
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        ex.ToString();
+                    }
                 }
                 tb.Rows.Add(dr);
                 tb.AcceptChanges();
@@ -120,7 +148,7 @@ namespace HiCSUtil
             if (tb != null && tb.Rows.Count == 1)
             {
                 bool isZeroRow = true;
-                foreach(object it in tb.Rows[0].ItemArray)
+                foreach (object it in tb.Rows[0].ItemArray)
                 {
                     if (!string.IsNullOrWhiteSpace(Convert.ToString(it)))
                     {
@@ -137,6 +165,15 @@ namespace HiCSUtil
             return tb;
         }
 
+        private static string[] Split(string source, string splitString)
+        {
+            if (string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(splitString))
+            {
+                return null;
+            }
+
+            return source.Split(new string[]{splitString}, StringSplitOptions.None);
+        }
 
         /// <summary>     
         /// Datatable转换为Json     
