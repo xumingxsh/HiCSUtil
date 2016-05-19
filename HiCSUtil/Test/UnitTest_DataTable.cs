@@ -16,13 +16,6 @@ namespace HiCSUtil.Test
             Assert.IsTrue(val == -1);
         }
 
-        [TestMethod]
-        public void DataTable_Default_Strig()
-        {
-            string val = default(string);
-            Assert.Equals(val, "");
-        }
-
         private T Get<T>()
         {
             if (typeof(T).Equals(typeof(int)))

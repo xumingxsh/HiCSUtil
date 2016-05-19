@@ -39,6 +39,23 @@ namespace HiCSUtil.Test
             FillDR(obj, dr);
             AssertObj(obj);
         }
+        [TestMethod]
+        public void CBOTest_FillObject_Null()
+        {
+            CCBOTest obj = new CCBOTest();
+            DataRow dr = GetDataRow();
+            SetData(dr);
+            obj = null;
+            bool ret = CBO.FillObject(obj, (string name) =>
+            {
+                if (!dr.Table.Columns.Contains(name))
+                {
+                    return null;
+                }
+                return dr[name];
+            });
+            Assert.IsFalse(ret);
+        }
         /// <summary>
         /// DataRow中无数据，设置属性成功，并获得期望结果
         /// </summary>

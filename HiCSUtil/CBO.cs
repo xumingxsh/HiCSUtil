@@ -59,6 +59,11 @@ namespace HiCSUtil
         /// <returns>出错的列索引，如果为-1，则成功;1000:列不确定</returns>
         public static bool FillObject<T>(T obj, OnGetObjectHandler handler)
         {
+            if (obj == null || obj is DBNull)
+            {
+                return false;
+            }
+
             // 循环遍历属性集成
             foreach (PropertyInfo it in typeof(T).GetProperties())
             {
@@ -87,6 +92,11 @@ namespace HiCSUtil
         /// <returns></returns>
         public static bool FillObject<T>(T obj, OnGetValueHandler handler)
         {
+            if (obj == null || obj is DBNull)
+            {
+                return false;
+            }
+
             // 循环遍历属性集成
             foreach (PropertyInfo it in typeof(T).GetProperties())
             {
@@ -112,6 +122,11 @@ namespace HiCSUtil
         /// <returns>true：成功；false：属性不存在</returns>
         public static bool SetValue<T>(T t, object val, string propertyName)
         {
+            if (t == null || t is DBNull)
+            {
+                return false;
+            }
+
             // 循环遍历属性集成
             foreach (PropertyInfo it in typeof(T).GetProperties())
             {

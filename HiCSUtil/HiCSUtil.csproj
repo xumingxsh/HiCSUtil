@@ -53,6 +53,8 @@
     <Compile Include="Test\UnitTestCBO.cs" />
     <Compile Include="Test\UnitTestJson.cs" />
     <Compile Include="Test\UnitTest_DataTable.cs" />
+    <Compile Include="Test\UnitTest_TypeHelper.cs" />
+    <Compile Include="HiTypeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

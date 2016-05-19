@@ -7,6 +7,10 @@ namespace HiCSUtil
     {
         private static void SetValue(object obj, object value, PropertyInfo property)
         {
+            if (obj == null || obj is DBNull)
+            {
+                return;
+            }
             Type type = property.PropertyType;
             if (value is DBNull || value == null ||
                 (type != typeof(string) && value is string && Convert.ToString(value).Trim().Equals("")))

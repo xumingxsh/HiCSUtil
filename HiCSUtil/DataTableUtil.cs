@@ -43,7 +43,7 @@ namespace HiCSUtil
             {
                 return -1;
             }
-            return Obj2Int(dt.Rows[rowIndex][index]);
+            return HiTypeHelper.Obj2Int(dt.Rows[rowIndex][index]);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace HiCSUtil
             {
                 return "";
             }
-            return Obj2Str(dt.Rows[rowIndex][index]);
+            return HiTypeHelper.Obj2Str(dt.Rows[rowIndex][index]);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace HiCSUtil
             {
                 return default(DateTime);
             }
-            return Obj2DateTime(dt.Rows[rowIndex][index]);
+            return HiTypeHelper.Obj2DateTime(dt.Rows[rowIndex][index]);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace HiCSUtil
             {
                 return -1;
             }
-            return Obj2Int(dt.Rows[rowIndex][field]);
+            return HiTypeHelper.Obj2Int(dt.Rows[rowIndex][field]);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace HiCSUtil
             {
                 return "";
             }
-            return Obj2Str(dt.Rows[rowIndex][field]);
+            return HiTypeHelper.Obj2Str(dt.Rows[rowIndex][field]);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace HiCSUtil
             {
                 return default(DateTime);
             }
-            return Obj2DateTime(dt.Rows[rowIndex][field]);
+            return HiTypeHelper.Obj2DateTime(dt.Rows[rowIndex][field]);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace HiCSUtil
             {
                 return -1;
             }
-            return Obj2Int(dr[index]);
+            return HiTypeHelper.Obj2Int(dr[index]);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace HiCSUtil
             {
                 return "";
             }
-            return Obj2Str(dr[index]);
+            return HiTypeHelper.Obj2Str(dr[index]);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace HiCSUtil
                 return -1;
             }
 
-            return Obj2Int(dr[field]);
+            return HiTypeHelper.Obj2Int(dr[field]);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace HiCSUtil
                 return "";
             }
 
-            return Obj2Str(dr[field]);
+            return HiTypeHelper.Obj2Str(dr[field]);
         }
 
         /// <summary>
@@ -203,50 +203,7 @@ namespace HiCSUtil
                 return default(DateTime);
             }
 
-            return Obj2DateTime(dr[field]);
-        }
-
-        private static int Obj2Int(object obj)
-        {
-            return Obj2Val<int>(obj, -1, (val) =>
-            {
-                return Convert.ToInt32(val);
-            });
-        }
-
-        private static string Obj2Str(object obj)
-        {
-            return Obj2Val<string>(obj, "", (val) =>
-            {
-                return Convert.ToString(val);
-            });
-        }
-
-        private static DateTime Obj2DateTime(object obj)
-        {
-            return Obj2Val<DateTime>(obj, default(DateTime), (val) =>
-            {
-                return Convert.ToDateTime(val);
-            });
-        }
-
-        delegate T OnConvertHandler<T>(object obj);
-        private static T Obj2Val<T>(object obj, T def, OnConvertHandler<T> conv)
-        {
-            if (obj == null || obj is DBNull)
-            {
-                return def;
-            }
-
-            try
-            {
-                return conv(obj);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-                return def;
-            }
+            return HiTypeHelper.Obj2DateTime(dr[field]);
         }
     }
 }
