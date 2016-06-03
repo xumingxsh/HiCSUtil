@@ -16,11 +16,12 @@ namespace HiCSUtil
     {
         public delegate T ReturnCallBack<T>();
         public delegate void NoReturnCallBack();
-        public T OnTry<T>(ReturnCallBack<T> call)
+        public static T OnTry<T>(ReturnCallBack<T> call)
         {
             try
             {
-               return call();
+               T t= call();
+               return (T)HiTypeHelper.ChangeType<T>(t);
             }
             catch (Exception ex)
             {
@@ -30,7 +31,7 @@ namespace HiCSUtil
         }
 
 
-        public void OnTry(NoReturnCallBack call)
+        public static void OnTry(NoReturnCallBack call)
         {
             try
             {

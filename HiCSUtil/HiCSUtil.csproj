@@ -55,6 +55,7 @@
     <Compile Include="Test\UnitTestCBO.cs" />
     <Compile Include="Test\UnitTestJson.cs" />
     <Compile Include="Test\UnitTest_DataTable.cs" />
+    <Compile Include="Test\UnitTest_TryHepler.cs" />
     <Compile Include="Test\UnitTest_TypeHelper.cs" />
     <Compile Include="HiTypeHelper.cs" />
     <Compile Include="TryHelper.cs" />
