@@ -50,6 +50,8 @@
     <Compile Include="HiLog.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serial\HiSerialPort.cs" />
+    <Compile Include="Serial\Impl\HiSerialPortImpl.cs" />
     <Compile Include="Test\UnitTestCBO.cs" />
     <Compile Include="Test\UnitTestJson.cs" />
     <Compile Include="Test\UnitTest_DataTable.cs" />
