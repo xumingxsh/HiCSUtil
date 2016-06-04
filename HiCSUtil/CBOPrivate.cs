@@ -17,12 +17,12 @@ namespace HiCSUtil
             {
                 if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
-                    property.SetValue(obj, null);
+                    property.SetValue(obj, null, null);
                     return;
                 }
                 else if (type.BaseType != typeof(System.ValueType))
                 {
-                    property.SetValue(obj, null);
+                    property.SetValue(obj, null, null);
                     return;
                 }
                 return;

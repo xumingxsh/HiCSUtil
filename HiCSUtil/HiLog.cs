@@ -23,20 +23,14 @@ namespace HiCSUtil
             LT_Error
         }
 
-        /// <summary>
-        /// 日志实现委托
-        /// </summary>
-        /// <param name="script"></param>
-        /// <param name="type"></param>
-        public delegate void OnLOG(string script, LogType type);
 
-        private static OnLOG onlog = null;
+        private static Action<string, LogType> onlog = null;
 
         /// <summary>
         /// 设置日志回调函数
         /// </summary>
         /// <param name="logfun"></param>
-        public static void SetLogFun(OnLOG logfun)
+        public static void SetLogFun(Action<string, LogType> logfun)
         {
             onlog = logfun;
         }

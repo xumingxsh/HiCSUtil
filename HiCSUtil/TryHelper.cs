@@ -14,9 +14,14 @@ namespace HiCSUtil
     /// </summary>
     public sealed class TryHelper
     {
-        public delegate T ReturnCallBack<T>();
-        public delegate void NoReturnCallBack();
-        public static T OnTry<T>(ReturnCallBack<T> call)
+        /// <summary>
+        /// 对函数添加异常处理
+        /// </summary>
+        /// <typeparam name="T">返回值类型</typeparam>
+        /// <param name="errBack">错误返回值</param>
+        /// <param name="call">函数</param>
+        /// <returns></returns>
+        public static T OnTry<T>(T errBack, Func<T> call)
         {
             try
             {
@@ -26,12 +31,40 @@ namespace HiCSUtil
             catch (Exception ex)
             {
                 HiLog.Error(ex.ToString());
-                return (T)HiTypeHelper.GetMyDefault<T>();
+                return errBack;
             }
         }
 
+        /// <summary>
+        /// 对函数添加异常处理
+        /// </summary>
+        /// <typeparam name="T">返回值类型</typeparam>
+        /// <param name="errBack">错误返值</param>
+        /// <param name="call">函数</param>
+        /// <returns></returns>
+        public static T OnTryEx<T>(T errBack, Func<object> call)
+        {
+            try
+            {
+                object t = call();
+                if (t == null || t is DBNull)
+                {
+                    return errBack;
+                }
+                return (T)t;
+            }
+            catch (Exception ex)
+            {
+                HiLog.Error(ex.ToString());
+                return errBack;
+            }
+        }
 
-        public static void OnTry(NoReturnCallBack call)
+        /// <summary>
+        /// 对函数添加异常处理(无返回值)
+        /// </summary>
+        /// <param name="call"></param>
+        public static void OnTry(Action call)
         {
             try
             {

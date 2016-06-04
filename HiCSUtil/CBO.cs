@@ -17,14 +17,7 @@ namespace HiCSUtil
         /// <param name="propertyName">属性名称</param>
         /// <returns>true:属性存在；false:属性不存在</returns>
         public delegate bool OnGetObjectHandler(ref object objVal, string propertyName);
-
-        /// <summary>
-        ///  根据属性名称，取得对应的值。
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        public delegate object OnGetValueHandler(string propertyName);
-
+        
         /// <summary>
         /// 根据DataRow填充对象
         /// </summary>
@@ -90,7 +83,7 @@ namespace HiCSUtil
         /// <param name="obj"></param>
         /// <param name="handler"></param>
         /// <returns></returns>
-        public static bool FillObject<T>(T obj, OnGetValueHandler handler)
+        public static bool FillObject<T>(T obj, Func<string, object> handler)
         {
             if (obj == null || obj is DBNull)
             {

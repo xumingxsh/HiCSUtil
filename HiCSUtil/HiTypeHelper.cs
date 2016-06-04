@@ -113,9 +113,47 @@ namespace HiCSUtil
                 return "";
             }
 
-            if (IsNumbericType<T>())
+
+            if (typeof(T) == typeof(int) ||
+                typeof(T) == typeof(short) ||
+                typeof(T) == typeof(long))
             {
                 return -1;
+            }
+            if (typeof(T) == typeof(sbyte))
+            {
+                sbyte val = -1;
+                return val;
+            }
+            
+            if (typeof(T) == typeof(uint) ||
+                typeof(T) == typeof(ushort) ||
+                typeof(T) == typeof(ulong))
+            {
+                return 0;
+            }
+            if (typeof(T) == typeof(byte))
+            {
+                byte val = 0;
+                return val;
+            }
+
+            if (typeof(T) == typeof(double))
+            {
+                double val = -1;
+                return val;
+            }
+
+            if (typeof(T) == typeof(float))
+            {
+                float val = -1;
+                return val;
+            }
+
+            if (typeof(T) == typeof(decimal))
+            {
+                decimal val = -1;
+                return val;
             }
 
             return default(T);
@@ -147,14 +185,13 @@ namespace HiCSUtil
 
             if (targetType == typeof(bool))
             {
+                object obj = false;
                 if (val.ToString() == "1")
                 {
-                    return true;
+                    obj = true;
                 }
-                else
-                {
-                    return true;
-                }
+
+                return obj;
             }
 
             if (targetType.IsEnum)
@@ -167,7 +204,8 @@ namespace HiCSUtil
                 }
                 else
                 {
-                    return val;
+                    object val2 = val;
+                    return val2;
                 }
             }
 
@@ -220,14 +258,6 @@ namespace HiCSUtil
         }
 
         /// <summary>
-        /// 类型转换函数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public delegate T OnConvertHandler<T>(object obj);
-
-        /// <summary>
         /// 将对象转换为目标类型
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -235,7 +265,7 @@ namespace HiCSUtil
         /// <param name="def"></param>
         /// <param name="conv"></param>
         /// <returns></returns>
-        public static T Obj2Val<T>(object obj, T def, OnConvertHandler<T> conv)
+        public static T Obj2Val<T>(object obj, T def, Func<object, T> conv)
         {
             if (obj == null || obj is DBNull)
             {
