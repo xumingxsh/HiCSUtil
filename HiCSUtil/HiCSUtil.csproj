@@ -41,12 +41,8 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aop\Impl\CallTraceProperty.cs" />
-    <Compile Include="Aop\Impl\CallTraceSink.cs" />
-    <Compile Include="Aop\Impl\InterceptProxy.cs" />
     <Compile Include="CBO.cs" />
     <Compile Include="CBOPrivate.cs" />
-    <Compile Include="Aop\MethInvokBaseAttribute.cs" />
     <Compile Include="DataTableUtil.cs" />
     <Compile Include="HiLog.cs" />
     <Compile Include="Json.cs" />
