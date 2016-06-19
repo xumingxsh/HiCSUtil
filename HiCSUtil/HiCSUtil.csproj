@@ -61,6 +61,21 @@
     <Compile Include="Test\UnitTest_TypeHelper.cs" />
     <Compile Include="HiTypeHelper.cs" />
     <Compile Include="TryHelper.cs" />
+    <Compile Include="Win32\HiWin32.cs" />
+    <Compile Include="Win32\HiWin32API.cs" />
+    <Compile Include="Win32\Impl\Message.cs" />
+    <Compile Include="Win32\Impl\Thread.cs" />
+    <Compile Include="Win32\Impl\WinAll.cs" />
+    <Compile Include="Win32\Impl\WindowsFun.cs" />
+    <Compile Include="Win32\Impl\WinHook.cs" />
+    <Compile Include="Win32\Impl\WinInput.cs" />
+    <Compile Include="Win32\Interface\IHook.cs" />
+    <Compile Include="Win32\Interface\IInput.cs" />
+    <Compile Include="Win32\Interface\IMessage.cs" />
+    <Compile Include="Win32\Interface\IThread.cs" />
+    <Compile Include="Win32\Interface\IWinAll.cs" />
+    <Compile Include="Win32\Interface\IWnd.cs" />
+    <Compile Include="Win32\WinEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
