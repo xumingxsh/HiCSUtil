@@ -51,7 +51,7 @@ namespace HiCSUtil
                 {
                     return errBack;
                 }
-                return (T)t;
+                return (T)HiTypeHelper.ChangeType<T>(t);
             }
             catch (Exception ex)
             {

@@ -49,7 +49,7 @@
     <Compile Include="Ini\Impl\IniCommon.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ini\ReadIni.cs" />
+    <Compile Include="Ini\CommonIni.cs" />
     <Compile Include="RemoteParam\ParamsHelper.cs" />
     <Compile Include="Serial\HiSerialPort.cs" />
     <Compile Include="Serial\Impl\HiSerialPortImpl.cs" />

@@ -38,8 +38,8 @@ namespace HiCSUtil
         /// <returns></returns>
         public static int ReadInt(DataTable dt, int rowIndex, int index)
         {
-            if (dt == null || dt.Rows.Count >= rowIndex || 
-                dt.Columns.Count >= index)
+            if (dt == null || dt.Rows.Count <= rowIndex || 
+                dt.Columns.Count <= index)
             {
                 return -1;
             }
@@ -55,8 +55,8 @@ namespace HiCSUtil
         /// <returns></returns>
         public static string ReadStr(DataTable dt, int rowIndex, int index)
         {
-            if (dt == null || dt.Rows.Count >= rowIndex ||
-                dt.Columns.Count >= index)
+            if (dt == null || dt.Rows.Count <= rowIndex ||
+                dt.Columns.Count <= index)
             {
                 return "";
             }
@@ -72,8 +72,8 @@ namespace HiCSUtil
         /// <returns></returns>
         public static DateTime ReadDateTime(DataTable dt, int rowIndex, int index)
         {
-            if (dt == null || dt.Rows.Count >= rowIndex ||
-                dt.Columns.Count >= index)
+            if (dt == null || dt.Rows.Count <= rowIndex ||
+                dt.Columns.Count <= index)
             {
                 return default(DateTime);
             }
@@ -89,7 +89,7 @@ namespace HiCSUtil
         /// <returns></returns>
         public static int ReadInt(DataTable dt, int rowIndex, string field)
         {
-            if (dt == null || dt.Rows.Count >= rowIndex)
+            if (dt == null || dt.Rows.Count <= rowIndex)
             {
                 return -1;
             }
@@ -105,7 +105,7 @@ namespace HiCSUtil
         /// <returns></returns>
         public static string ReadStr(DataTable dt, int rowIndex, string field)
         {
-            if (dt == null || dt.Rows.Count >= rowIndex)
+            if (dt == null || dt.Rows.Count <= rowIndex)
             {
                 return "";
             }
@@ -121,7 +121,7 @@ namespace HiCSUtil
         /// <returns></returns>
         public static DateTime ReadDateTime(DataTable dt, int rowIndex, string field)
         {
-            if (dt == null || dt.Rows.Count >= rowIndex)
+            if (dt == null || dt.Rows.Count <= rowIndex)
             {
                 return default(DateTime);
             }
@@ -136,7 +136,7 @@ namespace HiCSUtil
         /// <returns></returns>
         public static int ReadInt(DataRow dr, int index)
         {
-            if (dr == null || dr.Table.Columns.Count >= index)
+            if (dr == null || dr.Table.Columns.Count <= index)
             {
                 return -1;
             }
@@ -151,7 +151,7 @@ namespace HiCSUtil
         /// <returns></returns>
         public static string ReadStr(DataRow dr, int index)
         {
-            if (dr == null || dr.Table.Columns.Count >= index)
+            if (dr == null || dr.Table.Columns.Count <= index)
             {
                 return "";
             }

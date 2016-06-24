@@ -11,7 +11,7 @@ namespace HiCSUtil
     ///     这一点是比较烦人的,C++中常用的Ini文件则简洁的多
     ///  XuminRong 2016-06-15
     /// </summary>
-    public sealed class ReadIni
+    public sealed class CommonIni
     {
         public bool Init(string path)
         {
@@ -43,6 +43,15 @@ namespace HiCSUtil
         public int ReadInt(string section, string key, int defValue = -1)
         {
             return IniCommon.ReadInt(section, key, file, defValue);
+        }
+        public static bool Write(string section, string key, string val, string file)
+        {
+            return IniCommon.Write(section, key, val, file);
+        }
+
+        public bool Write(string section, string key, string val)
+        {
+            return Write(section, key, val, file);
         }
 
         string file;

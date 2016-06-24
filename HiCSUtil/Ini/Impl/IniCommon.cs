@@ -13,8 +13,8 @@ namespace HiCSUtil.Ini.Impl
         /// <param name="section">段落</param>
         /// <param name="key">键</param>
         /// <returns>返回的键值</returns>
-        public static string ReadString(string section, string key, string file, string defValue = "") 
-        { 
+        public static string ReadString(string section, string key, string file, string defValue = "")
+        {
             if (!File.Exists(file))
             {
                 return defValue;
@@ -22,8 +22,18 @@ namespace HiCSUtil.Ini.Impl
 
             StringBuilder temp = new StringBuilder(255);
 
-            int i = GetPrivateProfileString(section, key, defValue, temp, 255, file); 
+            int i = GetPrivateProfileString(section, key, defValue, temp, 255, file);
             return temp.ToString();
+        }
+
+        public static bool Write(string section, string key, string val, string file)
+        {
+            if (!File.Exists(file))
+            {
+                return false;
+            }
+            long value = WritePrivateProfileString(section, key, val, file);
+            return value > 0;
         }
 
         /// <summary>
@@ -46,7 +56,7 @@ namespace HiCSUtil.Ini.Impl
             {
                 return Convert.ToInt32(val);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.ToString();
                 return defValue;
@@ -64,9 +74,9 @@ namespace HiCSUtil.Ini.Impl
         /// <param name="filePath">INI文件的完整路径和文件名</param>
         /// <returns></returns>
         [DllImport("kernel32")]
-        private static extern int GetPrivateProfileString(string section, string key, string defVal, StringBuilder retVal, int size, string filePath); 
+        private static extern int GetPrivateProfileString(string section, string key, string defVal, StringBuilder retVal, int size, string filePath);
 
-             /// <summary>
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="section">要读取的段落名</param>
@@ -76,7 +86,18 @@ namespace HiCSUtil.Ini.Impl
         /// <param name="size">值允许的大小</param>
         /// <param name="filePath">INI文件的完整路径和文件名</param>
         /// <returns></returns>
-       [DllImport("kernel32")]
+        [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string defVal, Byte[] retVal, int size, string filePath);
+
+        /// <summary>
+        /// 写操作
+        /// </summary>
+        /// <param name="section">要写入的段落名</param>
+        /// <param name="key">要写入的键，如果该key存在则覆盖写入</param>
+        /// <param name="val">key所对应的值</param>
+        /// <param name="filePath">INI文件的完整路径和文件名</param>
+        /// <returns></returns>
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
     }
 }
