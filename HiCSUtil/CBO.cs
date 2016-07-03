@@ -106,6 +106,52 @@ namespace HiCSUtil
         }
 
         /// <summary>
+        /// 根据属性拷贝对象
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="D"></typeparam>
+        /// <param name="src"></param>
+        /// <param name="d"></param>
+        public static void Copy8Property<S, D>(S src, D d) where S :class
+            where D: class
+        {
+            CBO.FillObject<D>(d, (ref object objVal, string propertyName) =>
+            {
+                objVal = "";
+                // 循环遍历属性集成
+                foreach (PropertyInfo proper in typeof(S).GetProperties())
+                {
+                    if (proper.Name.ToLower().Equals(propertyName.ToLower()))
+                    {
+                        object obj = proper.GetValue(src, null);
+                        if (obj != null)
+                        {
+                            objVal = Convert.ToString(obj);
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
+        /// <summary>
+        /// 根据源对象创建对象
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="D"></typeparam>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static D Create8Property<S, D>(S src)
+            where S : class
+            where D : class, new()
+        {
+            D d = new D();
+            Copy8Property(src, d);
+            return d;
+        }
+
+        /// <summary>
         /// 根据属性名称，设置属性值。
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
