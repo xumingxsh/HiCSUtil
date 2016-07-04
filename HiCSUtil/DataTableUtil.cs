@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace HiCSUtil
@@ -204,6 +205,30 @@ namespace HiCSUtil
             }
 
             return HiTypeHelper.Obj2DateTime(dr[field]);
+        }
+
+        /// <summary>
+        /// DataTable转换为队列
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static List<T> DataTable2List<T>(DataTable dt) where T : class, new()
+        {
+            if (dt == null)
+            {
+                return null;
+            }
+            List<T> list = new List<T>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                T t = CBO.CreateObj<T>(dr);
+                if (t != null)
+                {
+                    list.Add(t);
+                }
+            }
+            return list;
         }
     }
 }
